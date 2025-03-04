@@ -1,0 +1,27 @@
+{
+  "name": "chattadata",
+  "version": "0.0.0",
+  "description": "ChattaData JavaScript Client",
+  "main": "chattadata.js",
+  "scripts": {
+    "format": "npx prettier --arrow-parens=avoid --trailing-comma=none --write *.js",
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/officeofperformancemanagement/chattadata.js.git"
+  },
+  "keywords": [
+    "chattadata",
+    "chattanooga"
+  ],
+  "author": "Daniel J. Dufour",
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": "https://github.com/officeofperformancemanagement/chattadata.js/issues"
+  },
+  "homepage": "https://github.com/officeofperformancemanagement/chattadata.js#readme",
+  "devDependencies": {
+    "flug": "^2.8.2"
+  }
+}
