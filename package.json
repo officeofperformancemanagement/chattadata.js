@@ -1,6 +1,6 @@
 {
   "name": "chattadata",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "ChattaData JavaScript Client",
   "main": "chattadata.js",
   "files": [
