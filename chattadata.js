@@ -82,7 +82,7 @@ class ChattaData {
     const result = await res.json();
     if (typeof result === "object" && result.error === true) {
       console.error(result);
-      throw new Error("[chattadata] failed to fetch metadata");
+      throw new Error("[chattadata] failed to post csv");
     }
     return result;
   }
@@ -107,7 +107,7 @@ class ChattaData {
     const result = await res.json();
     if (typeof result === "object" && result.error === true) {
       console.error(result);
-      throw new Error("[chattadata] failed to fetch metadata");
+      throw new Error("[chattadata] failed to put csv");
     }
     return result;
   }
