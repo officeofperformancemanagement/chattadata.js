@@ -22,7 +22,7 @@ class ChattaData {
         "Basic " +
         Buffer.from(this.username + ":" + this.password).toString("base64");
     } else if (this.authorization) {
-      results.Authorization = authorization;
+      results.Authorization = this.authorization;
     }
     return results;
   }
