@@ -1,14 +1,15 @@
 class ChattaData {
-  constructor({ username, password }) {
+  constructor({ username, password, authorization }) {
+    this.authorization = authorization;
     this.username = username;
     this.password = password;
     this._metadata_cache = {};
   }
 
-  static async init({ username, password }) {
+  static async init({ authorization, username, password }) {
     // to-do: try to connect
 
-    return new ChattaData({ username, password });
+    return new ChattaData({ authorization, username, password });
   }
 
   // async csv () {}
@@ -20,6 +21,8 @@ class ChattaData {
       results.Authorization =
         "Basic " +
         Buffer.from(this.username + ":" + this.password).toString("base64");
+    } else if (this.authorization) {
+      results.Authorization = authorization;
     }
     return results;
   }
