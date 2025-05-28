@@ -15,11 +15,13 @@ class ChattaData {
   // async json () {}
 
   async headers() {
-    return {
-      Authorization:
+    const results = {};
+    if (this.username && this.password) {
+      results.Authorization =
         "Basic " +
-        Buffer.from(this.username + ":" + this.password).toString("base64")
-    };
+        Buffer.from(this.username + ":" + this.password).toString("base64");
+    }
+    return results;
   }
 
   async meta({ id }) {
@@ -40,6 +42,49 @@ class ChattaData {
   async get_column_names({ id }) {
     const meta = await this.meta({ id });
     return meta.columns.map(column => column.name);
+  }
+
+  async get_csv({ id }) {
+    const headers = await this.headers();
+
+    const res = await fetch(
+      `https://internal.chattadata.org/api/views/${id}/rows.csv?accessType=DOWNLOAD`,
+      {
+        method: "GET",
+        headers
+      }
+    );
+    const result = await res.text();
+    if (typeof result === "string" && result.startsWith("<")) {
+      console.error(result);
+      throw new Error("[chattadata] failed to get dataset as csv");
+    }
+    return result;
+  }
+
+  async post_csv({ id, csv }) {
+    const headers = await this.headers();
+
+    if (csv) {
+      headers["Content-Type"] = "text/csv";
+    }
+
+    const body = csv ? csv : undefined;
+
+    const res = await fetch(
+      `https://internal.chattadata.org/resource/${id}.json`,
+      {
+        method: "POST",
+        headers,
+        body
+      }
+    );
+    const result = await res.json();
+    if (typeof result === "object" && result.error === true) {
+      console.error(result);
+      throw new Error("[chattadata] failed to fetch metadata");
+    }
+    return result;
   }
 
   async put_csv({ id, csv }) {
